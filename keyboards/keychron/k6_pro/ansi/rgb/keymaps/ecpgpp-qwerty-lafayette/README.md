@@ -38,6 +38,40 @@ DK1 S(KC_9)     ‹
 DK1 S(KC_0)     ›
 DK1 KC_MINS     —
 DK1 KC_EQL      ≠
-DK1 S(KC_EQL)   ±
+DK1 S(KC_EQL)   ± FOUND IT (ALGR(S(KC_M)))
+DK1 S(KC_F)     ª
+DK1 KC_G        –
+DK1 KC_B        —
+DK1 S(KC_M)     º
+
+The EURO key was not mapped because it was deemed less useful than the exclamation mark for now.
+## How the US ansi international keymap works
+
+### Dead Key Accents
+Type        Press this key     Then press this key	 Resulting character
+Acute       ‘(APOSTROPHE)	   c, e, y, u, i, o, a	 é, ý, ú, í, ó, á
+Umlaut      “(QUOTATION MARK)  e, y, u, i, o, a	     ë, ÿ, ü, ï, ö, ä
+Grave       `(ACCENT GRAVE)	   e, u, i, o, a	     è, ù, ì, ò, à
+Tilde       ~(TILDE)	       o, n, a	             õ, ñ, ã
+Circumflex  ^(CARET)	       e, u, i, o, a	     ê, û, î, ô, â
+
+These are done with SendString functions, except the characters that are doable using a layer instead (such as altgr keys)
+
+### Accents without dead keys
+Some accents can be obtained with ALTGR
+This keymap prefers this way
+These are the accents done this way
+ç é ú í ó á
+ë ü ï
 
 
+
+
+## BUGS
+
+- One weird thing currently happens with the 'à' key where when doing `DK1 + à` it outputs `àc`
+- On OSL, the shift key should be ignored and not count toward the key presses as it prevents typing some letters
+- when typing ê, there is a delay before it is possible to erase it
+    it seems like when inputing this key, the win key is pressed aswell for some reason
+
+ 
