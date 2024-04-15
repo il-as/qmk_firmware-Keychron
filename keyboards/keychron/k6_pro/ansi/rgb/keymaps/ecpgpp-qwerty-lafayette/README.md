@@ -69,9 +69,12 @@ These are the accents done this way
 
 ## BUGS
 
+SOLVED
 - One weird thing currently happens with the 'à' key where when doing `DK1 + à` it outputs `àc`
+
 - On OSL, the shift key should be ignored and not count toward the key presses as it prevents typing some letters
+
+SOLVED
 - when typing ê, there is a delay before it is possible to erase it
     it seems like when inputing this key, the win key is pressed aswell for some reason
-
- 
+- for some reason when doing DK1 e r it changes the size in i3 as if I did SUPER R

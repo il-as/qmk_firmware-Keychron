@@ -46,12 +46,15 @@ enum custom_keycodes {
 //   US_ODIA,             // ö ALLREADY exists as ALGR(US_P), US_ODIA
 //   US_ADIA,             // ä ALLREADY exists as ALGR(US_Q), US_ADIA
   US_TDIA,                // ẗ
+  US_XDIA,                // ẍ
+  US_WDIA,                // ẅ
+  US_HDIA,                // ḧ
   // ` grv accents
   US_EGRV,                // è
   US_UGRV,                // ù
   US_IGRV,                // ì
   US_OGRV,                // ò
-  US_AGRV,                // à
+  FL_AGRV,                // à
   // ^ circumflex accents
   US_ECFX,                // ê
   US_YCFX,                // ŷ
@@ -76,11 +79,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("'y"); // ý
         }
         break;
-    case US_YDIA:
-        if (record->event.pressed) {
-            SEND_STRING("\"y"); // ÿ
-        }
-        break;
     case US_EGRV:
         if (record->event.pressed) {
             SEND_STRING("`e"); // è
@@ -101,7 +99,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("`o"); // ò
         }
         break;
-    case US_AGRV:
+    case FL_AGRV:
         if (record->event.pressed) {
             SEND_STRING("`a"); // à
         }
@@ -136,9 +134,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("^a"); // â
         }
         break;
+    case US_WDIA:
+        if (record->event.pressed) {
+            SEND_STRING("\"w"); // ẅ
+        }
+        break;
     case US_TDIA:
         if (record->event.pressed) {
             SEND_STRING("\"t"); // ẗ
+        }
+        break;
+    case US_YDIA:
+        if (record->event.pressed) {
+            SEND_STRING("\"y"); // ÿ
+        }
+        break;
+    case US_HDIA:
+        if (record->event.pressed) {
+            SEND_STRING("\"h"); // ḧ
+        }
+        break;
+    case US_XDIA:
+        if (record->event.pressed) {
+            SEND_STRING("\"x"); // ẍ
         }
         break;
     }
@@ -218,13 +236,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │Tab  │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ [ │ ] │  \  │HOM│
      * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
      * │Caps  │ A │ S │ D │ F │ G │ H │ J │ K │ L │DK1│ ' │    Ent │PGU│
-     * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
+     * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
      * │Sft     │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │Shift │Up │PGD│
-     * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬┴──┬───┼───┼───┤
+     * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬┴──┬───┼───┼───┤
      * │Ctrl│GUI │Alt │Space                   │Cmd│Fn1│Fn2│Lft│Dwn│Rig│
      * └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┴───┘
      */
-
+    
 [WIN_BASE] = LAYOUT_ansi_68(
      KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC, RGB_MOD,
      KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS, KC_HOME,
@@ -252,9 +270,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │Tab  │ @ │ < │ > │ $ │ % │ ^ │ & │ * │ ' │ ` │ [ │ ] │  \  │PgD│
      * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
      * │Caps  │ { │ ( │ ) │ } │ = │ \ │ + │ - │ / │ " │   │    Ent │Ins│
-     * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
+     * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
      * │Sft     │ ~ │ [ │ ] │ _ │ # │ | │ ! │ ; │ : │ ? │Shift │Up │Fn │
-     * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬┴──┬───┼───┼───┤
+     * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬┴──┬───┼───┼───┤
      * │Ctrl│GUI │Alt │Space                   │Alt│Fn1│Fn2│Lft│Dwn│Rig│
      * └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┴───┘
      */
@@ -276,7 +294,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [DK1] = LAYOUT_ansi_68(
      KC_ESC,   KC_NO,    US_LDQU,  US_RDQU,  US_CENT,  US_PND,    US_YEN,   US_CURR,  US_SECT,  US_PILC,   US_DEG,   KC_NO,    KC_NO,    KC_BSPC, RGB_MOD,
      KC_TAB,   US_AE,    US_EACU,  US_EGRV,  US_EDIA,  US_MINS,  US_UDIA,  US_UGRV,  US_IDIA,  US_OE,     KC_NO,    KC_NO,    KC_NO,    KC_NO,   KC_HOME,
-     KC_CAPS,  US_AGRV,  US_SS,    US_ECFX,  US_MINS,  KC_NO,    US_YCFX,  US_UCFX,  US_ICFX,  US_OCFX,  OSL(DK2),  KC_NO,              KC_ENT,  KC_PGUP,
+     KC_CAPS,  FL_AGRV,  US_SS,    US_ECFX,  US_MINS,  KC_NO,    US_YCFX,  US_UCFX,  US_ICFX,  US_OCFX,  OSL(DK2),  KC_NO,              KC_ENT,  KC_PGUP,
      KC_LSFT,  US_ACFX,  US_MUL,   US_CCED,  US_UNDS,  KC_NO,    US_NTIL,  US_MICR,  US_ITPT,  KC_NO,     US_DIV,   KC_RSFT,  KC_UP,    KC_PGDN,
      KC_LCTL,  KC_LOPT, KC_LCMD,                                 US_RSQU,                     MO(ALT_GR),MO(MAC_FN1),MO(FN2), KC_LEFT,  KC_DOWN, KC_RGHT),
     /* Dead Key first layer (DK1)
@@ -294,9 +312,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 [DK2] = LAYOUT_ansi_68(
      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,     KC_NO,    KC_NO,    KC_BSPC,  RGB_MOD,
-     KC_TAB,   KC_NO,    KC_NO,    US_EDIA,  KC_NO,    US_TDIA,  US_YDIA,  US_UDIA,  US_IDIA,  US_ODIA,  KC_NO,     KC_NO,    KC_NO,    KC_NO,    KC_HOME,
-     KC_CAPS,  US_ADIA,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,     KC_NO,              KC_ENT,   KC_NO,  
-     KC_LSFT,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,     KC_RSFT,  KC_UP,    KC_PGDN,
+     KC_TAB,   KC_NO,    US_WDIA,  US_EDIA,  KC_NO,    US_TDIA,  US_YDIA,  US_UDIA,  US_IDIA,  US_ODIA,  KC_NO,     KC_NO,    KC_NO,    KC_NO,    KC_HOME,
+     KC_CAPS,  US_ADIA,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    US_HDIA,  KC_NO,    KC_NO,    KC_NO,    KC_NO,     KC_NO,              KC_ENT,   KC_NO,  
+     KC_LSFT,  KC_NO,    US_XDIA,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,     KC_RSFT,  KC_UP,    KC_PGDN,
      KC_LCTL,  KC_LOPT,  KC_LCMD,                                KC_SPC,                    MO(ALT_GR),MO(MAC_FN1), MO(FN2),  KC_LEFT,  KC_DOWN,  KC_RGHT),
     /* DeadKey second layer
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐ 
@@ -313,3 +331,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */   
 
 };
+
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  debug_matrix=true;
+  debug_keyboard=true;
+  //debug_mouse=true;
+}
