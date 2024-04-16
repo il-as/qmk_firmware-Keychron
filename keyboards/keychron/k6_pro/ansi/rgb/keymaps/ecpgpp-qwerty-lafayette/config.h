@@ -1,2 +1,3 @@
-#define TAPPING_TERM 50
+#define TAPPING_TERM 10
 #define ONESHOT_TAP_TOGGLE 20
+// #define ONESHOT_TIMEOUT 20

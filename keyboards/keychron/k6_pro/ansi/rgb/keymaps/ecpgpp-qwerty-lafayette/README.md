@@ -65,6 +65,11 @@ These are the accents done this way
 ë ü ï
 
 
+### MORE keycodes I found on us intl
+S(ALGR(KC_M)) // ±
+ALGR(KC_F)    // ë
+ALGR(KC_J)    // ï
+ALGR(KC_X)    // ·
 
 
 ## BUGS

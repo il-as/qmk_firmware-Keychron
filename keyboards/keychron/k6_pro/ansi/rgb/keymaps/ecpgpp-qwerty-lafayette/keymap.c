@@ -16,6 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
+// #include "sendstring_us_international.h"
 #include "keymap_us_international_linux.h"
 
 
@@ -54,7 +55,7 @@ enum custom_keycodes {
   US_UGRV,                // ù
   US_IGRV,                // ì
   US_OGRV,                // ò
-  FL_AGRV,                // à
+  US_AGRV,                // à
   // ^ circumflex accents
   US_ECFX,                // ê
   US_YCFX,                // ŷ
@@ -76,87 +77,123 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case US_YACU:
         if (record->event.pressed) {
-            SEND_STRING("'y"); // ý
+            // SEND_STRING("'y"); // ý
+            tap_code(US_ACUT);
+            tap_code(US_Y);
         }
         break;
     case US_EGRV:
         if (record->event.pressed) {
-            SEND_STRING("`e"); // è
+            // SEND_STRING(SS_TAP(X_GRAVE)); // è
+            // send_unicode_string("è");
+            tap_code(US_DGRV);
+            tap_code(US_E);
         }
         break;
     case US_UGRV:
         if (record->event.pressed) {
-            SEND_STRING("`u"); // ù
+            // SEND_STRING("`u"); // ù
+            tap_code(US_DGRV);
+            tap_code(US_U);
         }
         break;
     case US_IGRV:
         if (record->event.pressed) {
-            SEND_STRING("`i"); // ì
+            // SEND_STRING("`i"); // ì
+            tap_code(US_DGRV);
+            tap_code(US_I);
         }
         break;
     case US_OGRV:
         if (record->event.pressed) {
-            SEND_STRING("`o"); // ò
+            // SEND_STRING("`o"); // ò
+            tap_code(US_DGRV);
+            tap_code(US_O);
         }
         break;
-    case FL_AGRV:
+    case US_AGRV:
         if (record->event.pressed) {
-            SEND_STRING("`a"); // à
+            // SEND_STRING(SS_TAP(X_GRAVE)"a"); // à
+            tap_code(US_DGRV);
+            tap_code(US_A);
         }
         break;
     case US_ECFX:
         if (record->event.pressed) {
-            SEND_STRING("^e"); // ê
+            // SEND_STRING(SS_LSFT("6")); // ê
+            // SEND_STRING("e"); // ê
+            tap_code16(US_DCIR);
+            tap_code(US_E);
         }
         break;
     case US_YCFX:
         if (record->event.pressed) {
-            SEND_STRING("^y"); // ŷ
+            // SEND_STRING("^y"); // ŷ
+            tap_code16(US_DCIR);
+            tap_code(US_E);
         }
         break;
     case US_UCFX:
         if (record->event.pressed) {
-            SEND_STRING("^u"); // û
+            // SEND_STRING("^u"); // û
+            tap_code16(US_DCIR);
+            tap_code(US_U);
         }
         break;
     case US_ICFX:
         if (record->event.pressed) {
-            SEND_STRING("^i"); // î
+            // SEND_STRING("^i"); // î
+            tap_code16(US_DCIR);
+            tap_code(US_I);
         }
         break;
     case US_OCFX:
         if (record->event.pressed) {
-            SEND_STRING("^o"); // ô
+            // SEND_STRING("^o"); // ô
+            tap_code16(US_DCIR);
+            tap_code(US_O);
         }
         break;
     case US_ACFX:
         if (record->event.pressed) {
-            SEND_STRING("^a"); // â
+            // SEND_STRING("^a"); // â
+            tap_code16(US_DCIR);
+            tap_code(US_A);
         }
         break;
     case US_WDIA:
         if (record->event.pressed) {
-            SEND_STRING("\"w"); // ẅ
+            // SEND_STRING("\"w"); // ẅ
+            tap_code16(US_DIAE);
+            tap_code(US_W);
         }
         break;
     case US_TDIA:
         if (record->event.pressed) {
-            SEND_STRING("\"t"); // ẗ
+            // SEND_STRING("\"t"); // ẗ
+            tap_code16(US_DIAE);
+            tap_code(US_T);
         }
         break;
     case US_YDIA:
         if (record->event.pressed) {
-            SEND_STRING("\"y"); // ÿ
+            // SEND_STRING("\"y"); // ÿ
+            tap_code16(US_DIAE);
+            tap_code(US_Y);
         }
         break;
     case US_HDIA:
         if (record->event.pressed) {
-            SEND_STRING("\"h"); // ḧ
+            // SEND_STRING("\"h"); // ḧ
+            tap_code16(US_DIAE);
+            tap_code(US_Y);
         }
         break;
     case US_XDIA:
         if (record->event.pressed) {
-            SEND_STRING("\"x"); // ẍ
+            // SEND_STRING("\"x"); // ẍ
+            tap_code16(US_DIAE);
+            tap_code(US_X);
         }
         break;
     }
@@ -169,12 +206,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 enum layers{
   MAC_BASE,
   WIN_BASE,
-  MAC_FN1,
-//   WIN_FN1,
-  FN2,
-  ALT_GR,
   DK1,
-  DK2
+  DK2,
+  ALT_GR,
+  MAC_FN1,
+  WIN_FN1,
+  FN2
 };
 
 
@@ -226,7 +263,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [MAC_BASE] = LAYOUT_ansi_68(
      KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC, RGB_MOD,
      KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS, KC_HOME,
-     KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     OSL(DK1), US_QUOT,            KC_ENT,  KC_PGUP,
+     KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,    OSL(DK1),  US_QUOT,            KC_ENT,  KC_PGUP,
      KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,    KC_PGDN,
      KC_LCTL,  KC_LOPT, KC_LCMD,                               KC_SPC,                     MO(ALT_GR),MO(MAC_FN1),MO(FN2), KC_LEFT,  KC_DOWN, KC_RGHT),
     /* Base layer
@@ -246,55 +283,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [WIN_BASE] = LAYOUT_ansi_68(
      KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC, RGB_MOD,
      KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS, KC_HOME,
-     KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     OSL(DK1), US_QUOT,            KC_ENT,  KC_PGUP,
+     KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,    OSL(DK1),  US_QUOT,            KC_ENT,  KC_PGUP,
      KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,    KC_PGDN,
      KC_LCTL,  KC_LGUI,  KC_LALT,                                       KC_SPC,                     MO(ALT_GR),MO(MAC_FN1),MO(FN2), KC_LEFT,  KC_DOWN, KC_RGHT),
 
-[MAC_FN1] = LAYOUT_ansi_68(
-     US_GRV,   KC_BRID,  KC_BRIU,  KC_MCTL,  KC_LPAD,  RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,  RGB_TOG,
-     KC_TRNS,  BT_HST1,  BT_HST2,  BT_HST3,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-     RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,  KC_TRNS,
-     KC_TRNS,  RGB_RMOD, RGB_VAD,  RGB_HUD,  RGB_SAD,  RGB_SPD,  NK_TOGG,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-     KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS),
-
-[ALT_GR] = LAYOUT_ansi_68(
-     KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC, RGB_MOD,
-     KC_TAB,   KC_AT,    KC_LT,    KC_GT,    KC_DLR,   KC_PERC,  US_CIRC,  KC_AMPR,  KC_PAST,  US_QUOT,  US_GRV,   KC_NO,    KC_NO,    KC_NO,   KC_HOME,
-     KC_CAPS,  KC_LCBR,  KC_LPRN,  KC_RPRN,  KC_RCBR,  KC_EQL,   KC_BSLS,  US_DQUO,  KC_PMNS,  KC_SLSH,  US_DQUO,  KC_NO,              KC_ENT,  KC_PGUP,
-     KC_LSFT,  US_TILD,  KC_LBRC,  KC_RBRC,  KC_UNDS,  KC_HASH,  KC_PIPE,  KC_EXLM,  US_SCLN,  US_COLN,  KC_QUES,  KC_RSFT,  KC_UP,    KC_PGDN,
-     KC_LCTL,  KC_LGUI,  KC_LALT,                                KC_SPC,                       KC_RALT, MO(MAC_FN1),MO(FN2), KC_LEFT,  KC_DOWN, KC_RGHT),
-    /*  ALT_GR layer (dev special chars) DONE
-     * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐ 
-     * │ ` │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ - │ = │Bkspc  │PgU│
-     * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
-     * │Tab  │ @ │ < │ > │ $ │ % │ ^ │ & │ * │ ' │ ` │ [ │ ] │  \  │PgD│
-     * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
-     * │Caps  │ { │ ( │ ) │ } │ = │ \ │ + │ - │ / │ " │   │    Ent │Ins│
-     * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
-     * │Sft     │ ~ │ [ │ ] │ _ │ # │ | │ ! │ ; │ : │ ? │Shift │Up │Fn │
-     * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬┴──┬───┼───┼───┤
-     * │Ctrl│GUI │Alt │Space                   │Alt│Fn1│Fn2│Lft│Dwn│Rig│
-     * └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┴───┘
-     */
-
-// [WIN_FN1] = LAYOUT_ansi_68(
-//      KC_GRV,   KC_BRID,  KC_BRIU,  KC_TASK,  KC_FILE,  RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_TRNS,  RGB_TOG,
-//      KC_TRNS,  BT_HST1,  BT_HST2,  BT_HST3,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-//      RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,
-//      KC_TRNS,  RGB_RMOD, RGB_VAD,  RGB_HUD,  RGB_SAD,  RGB_SPD,  NK_TOGG,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-//      KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS),
-
-[FN2] = LAYOUT_ansi_68(
-     KC_TILD,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_TRNS,  KC_TRNS,
-     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,  KC_TRNS,
-     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  BAT_LVL,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-     KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS),
-
 [DK1] = LAYOUT_ansi_68(
-     KC_ESC,   KC_NO,    US_LDQU,  US_RDQU,  US_CENT,  US_PND,    US_YEN,   US_CURR,  US_SECT,  US_PILC,   US_DEG,   KC_NO,    KC_NO,    KC_BSPC, RGB_MOD,
-     KC_TAB,   US_AE,    US_EACU,  US_EGRV,  US_EDIA,  US_MINS,  US_UDIA,  US_UGRV,  US_IDIA,  US_OE,     KC_NO,    KC_NO,    KC_NO,    KC_NO,   KC_HOME,
-     KC_CAPS,  FL_AGRV,  US_SS,    US_ECFX,  US_MINS,  KC_NO,    US_YCFX,  US_UCFX,  US_ICFX,  US_OCFX,  OSL(DK2),  KC_NO,              KC_ENT,  KC_PGUP,
+     KC_ESC,   KC_NO,    US_LDQU,  US_RDQU,  US_CENT,  US_PND,   US_YEN,   US_CURR,  US_SECT,  US_PILC,   US_DEG,   KC_NO,    KC_NO,     KC_BSPC, RGB_MOD,
+     KC_TAB,   US_AE,    US_EACU,  US_EGRV,  US_EDIA,  US_MINS,  US_UDIA,  US_UGRV,  US_IDIA,  US_OE,     KC_NO,    KC_NO,    KC_NO,     KC_NO,    KC_HOME,
+     KC_CAPS,  US_AGRV,  US_SS,    US_ECFX,  US_MINS,  KC_NO,    US_YCFX,  US_UCFX,  US_ICFX,  US_OCFX,   OSL(DK2),    KC_NO,               KC_ENT,  KC_PGUP,
      KC_LSFT,  US_ACFX,  US_MUL,   US_CCED,  US_UNDS,  KC_NO,    US_NTIL,  US_MICR,  US_ITPT,  KC_NO,     US_DIV,   KC_RSFT,  KC_UP,    KC_PGDN,
      KC_LCTL,  KC_LOPT, KC_LCMD,                                 US_RSQU,                     MO(ALT_GR),MO(MAC_FN1),MO(FN2), KC_LEFT,  KC_DOWN, KC_RGHT),
     /* Dead Key first layer (DK1)
@@ -329,13 +325,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │Ctrl│GUI │Alt │Space                   │Alt│Fn1│Fn2│Lft│Dwn│Rig│
      * └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┴───┘
      */   
+[MAC_FN1] = LAYOUT_ansi_68(
+     US_GRV,   KC_BRID,  KC_BRIU,  KC_MCTL,  KC_LPAD,  RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,  RGB_TOG,
+     KC_TRNS,  BT_HST1,  BT_HST2,  BT_HST3,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+     RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,  KC_TRNS,
+     KC_TRNS,  RGB_RMOD, RGB_VAD,  RGB_HUD,  RGB_SAD,  RGB_SPD,  NK_TOGG,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+     KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS),
+
+[ALT_GR] = LAYOUT_ansi_68(
+     KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC, RGB_MOD,
+     KC_TAB,   KC_AT,    KC_LT,    KC_GT,    KC_DLR,   KC_PERC,  US_CIRC,  KC_AMPR,  KC_PAST,  US_QUOT,  US_GRV,   KC_NO,    KC_NO,    KC_NO,   KC_HOME,
+     KC_CAPS,  KC_LCBR,  KC_LPRN,  KC_RPRN,  KC_RCBR,  KC_EQL,   KC_BSLS,  US_DQUO,  KC_PMNS,  KC_SLSH,  US_DQUO,  KC_NO,              KC_ENT,  KC_PGUP,
+     KC_LSFT,  US_TILD,  KC_LBRC,  KC_RBRC,  KC_UNDS,  KC_HASH,  KC_PIPE,  KC_EXLM,  US_SCLN,  US_COLN,  KC_QUES,  KC_RSFT,  KC_UP,    KC_PGDN,
+     KC_LCTL,  KC_LGUI,  KC_LALT,                                KC_SPC,                       KC_RALT, MO(MAC_FN1),MO(FN2), KC_LEFT,  KC_DOWN, KC_RGHT),
+    /*  ALT_GR layer (dev special chars) DONE
+     * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐ 
+     * │ ` │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ - │ = │Bkspc  │PgU│
+     * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
+     * │Tab  │ @ │ < │ > │ $ │ % │ ^ │ & │ * │ ' │ ` │ [ │ ] │  \  │PgD│
+     * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
+     * │Caps  │ { │ ( │ ) │ } │ = │ \ │ + │ - │ / │ " │   │    Ent │Ins│
+     * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
+     * │Sft     │ ~ │ [ │ ] │ _ │ # │ | │ ! │ ; │ : │ ? │Shift │Up │Fn │
+     * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬┴──┬───┼───┼───┤
+     * │Ctrl│GUI │Alt │Space                   │Alt│Fn1│Fn2│Lft│Dwn│Rig│
+     * └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┴───┘
+     */
+
+[WIN_FN1] = LAYOUT_ansi_68(
+     KC_GRV,   KC_BRID,  KC_BRIU,  KC_TASK,  KC_FILE,  RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_TRNS,  RGB_TOG,
+     KC_TRNS,  BT_HST1,  BT_HST2,  BT_HST3,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+     RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,
+     KC_TRNS,  RGB_RMOD, RGB_VAD,  RGB_HUD,  RGB_SAD,  RGB_SPD,  NK_TOGG,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+     KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS),
+
+[FN2] = LAYOUT_ansi_68(
+     KC_TILD,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_TRNS,  KC_TRNS,
+     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,  KC_TRNS,
+     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  BAT_LVL,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+     KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS),
 
 };
-
-void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  debug_enable=true;
-  debug_matrix=true;
-  debug_keyboard=true;
-  //debug_mouse=true;
-}
